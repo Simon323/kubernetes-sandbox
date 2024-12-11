@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mywebapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mywebapi
+  template:
+    metadata:
+      labels:
+        app: mywebapi
+    spec:
+      containers:
+        - name: mywebapi
+          image: mywebapi:local
+          ports:
+            - containerPort: 80
+          # Explicitly set environment variables here
+          # env:
+          #   - name: JwtSettings__SecretKey
+          #     value: NewSuperSecretKey1234567890
+          #   - name: EnvKey
+          #     value: ProvidedValue
+          # Use a ConfigMap to set environment variables
+          # envFrom:
+          #   - configMapRef:
+          #       name: jwt-config
+          # Use a Secret to set environment variables
+          # envFrom:
+          #   - secretRef:
+          #       name: jwt-secret
+          # Use a Secret to set environment variables
+          # env:
+          #   - name: JwtSettings__SecretKey
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: jwt-secret
+          #         key: JwtSettings__SecretKey
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mywebapi-service
+spec:
+  type: NodePort
+  selector:
+    app: mywebapi
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30001

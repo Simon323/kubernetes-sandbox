@@ -15,6 +15,9 @@
     - [Enter to pod container](#enter-to-pod-container)
     - [Get events](#get-events)
     - [Get resources description](#get-resources-description)
+  - [Kubernetes env](#kubernetes-env)
+    - [ConfigMap Apply \& Display](#configmap-apply--display)
+    - [Secret Applu \& Display](#secret-applu--display)
 
 ---
 
@@ -86,4 +89,23 @@ kubectl get events
 ```bash
 kubectl describe deployment mywebapi
 kubectl describe svc mywebapi-service
+```
+
+---
+
+## Kubernetes env
+
+### ConfigMap Apply & Display
+```bash
+kubectl apply -f jwt-configmap.yaml
+kubectl describe configmap jwt-config
+kubectl get configmap jwt-config -o yaml
+```
+
+### Secret Applu & Display
+```bash
+echo -n "PASS_YOUR_SUPER_SECRET_KEY_HERE" | base64
+kubectl apply -f jwt-secret.yaml
+kubectl describe secret jwt-secret
+kubectl get secret jwt-secret -o yaml
 ```
