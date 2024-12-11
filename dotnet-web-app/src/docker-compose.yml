@@ -1,0 +1,11 @@
+name: my_project_name
+version: "3.8"
+services:
+  webapi:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      - JwtSettings__SecretKey=NewSuperSecretKey12345
+    ports:
+      - "30001:80"

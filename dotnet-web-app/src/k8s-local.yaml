@@ -13,10 +13,15 @@ spec:
         app: mywebapi
     spec:
       containers:
-      - name: mywebapi
-        image: mywebapi:local
-        ports:
-        - containerPort: 80
+        - name: mywebapi
+          image: mywebapi:local
+          ports:
+            - containerPort: 80
+          env:
+            - name: JwtSettings__SecretKey
+              value: NewSuperSecretKey1234567890
+            - name: EnvKey
+              value: ProvidedValue
 ---
 apiVersion: v1
 kind: Service
@@ -27,7 +32,7 @@ spec:
   selector:
     app: mywebapi
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
-    nodePort: 30001
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30001
