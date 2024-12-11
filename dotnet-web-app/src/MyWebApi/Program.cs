@@ -13,5 +13,6 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 app.MapWeatherEndpoints();
+app.MapTokenEndpoints();
 
 app.Run();

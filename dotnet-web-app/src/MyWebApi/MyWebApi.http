@@ -4,3 +4,6 @@ GET {{MyWebApi_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{MyWebApi_HostAddress}}/token/
+Accept: application/json
