@@ -7,7 +7,6 @@ WORKDIR /app
 
 # Copy the rest of the application files
 COPY . .
-RUN dotnet clean
 RUN dotnet restore
 RUN dotnet publish -c Release -o out
 

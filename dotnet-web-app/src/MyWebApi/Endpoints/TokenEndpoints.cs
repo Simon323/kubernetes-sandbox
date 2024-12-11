@@ -39,6 +39,15 @@ public static class TokenEndpoints
       return Results.Ok(new { Token = tokenHandler.WriteToken(token) });
     });
 
+    group.MapGet("/env", (IConfiguration _configuration) =>
+    {
+      // Get secret key
+      var appsettingsKey = _configuration.GetValue<string>("JwtSettings:SecretKey");
+      var envKey = Environment.GetEnvironmentVariable("EnvKey") ?? "EnvKey not found";
+
+      return Results.Ok(new { AppsettingsKey = appsettingsKey, EnvKey = envKey });
+    });
+
     return group;
   }
 }

@@ -10,6 +10,12 @@ docker build -t mywebapi:local .
 docker run -d -p 8080:80 --name mywebapi mywebapi:local
 ```
 
+## Run container with env
+```bash
+docker run -d -p 8080:80 -e EnvKey=key_passed_to_container --name mywebapi mywebapi:local
+docker run -d -p 8080:80 -e EnvKey=key_passed_to_container -e JwtSettings__SecretKey="NewSuperSecretKey12345" --name mywebapi mywebapi:local
+```
+
 ## Run in kubernetes
 ```bash
 kubectl apply -f k8s-local.yaml
