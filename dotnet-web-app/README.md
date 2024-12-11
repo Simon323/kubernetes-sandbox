@@ -23,10 +23,36 @@ kubectl delete -f k8s-local.yaml
 ## Get pods
 ```bash
 kubectl get pods
+```
+
+## Get services
+```bash
 kubectl get svc
+```
+
+## Describe pod
+```bash
+kubectl describe pod <mywebapi-xxxxxxxxxx-xxxxx>
 ```
 
 ## Get pod logs
 ```bash
-kubectl logs mywebapi-xxxxxxxxxx-xxxxx
+kubectl logs <mywebapi-xxxxxxxxxx-xxxxx>
 ```
+
+## Enter to pod container
+```bash
+kubectl exec -it <mywebapi-xxxxxxxxxx-xxxxx> -- /bin/bash
+```
+
+## Get events
+```bash
+kubectl get events
+```
+
+## Get resources description
+```bash
+kubectl describe deployment mywebapi
+kubectl describe svc mywebapi-service
+```
+
