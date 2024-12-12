@@ -27,6 +27,22 @@ services:
     volumes:
       - sqlserver_data:/var/opt/mssql
       - ./backups:/var/opt/mssql/backup
+  backup:
+    image: mcr.microsoft.com/mssql-tools
+    container_name: sql-server-backup
+    depends_on:
+      - db
+    networks:
+      - app_network
+    volumes:
+      - ./backups:/var/opt/mssql/backup
+    entrypoint: >
+      /bin/bash -c "
+      while true; do
+        sleep 30 &&
+        /opt/mssql-tools/bin/sqlcmd -S db -U sa -P 'YourStrongPassword!' -Q \"BACKUP DATABASE [MyDatabase] TO DISK = '/var/opt/mssql/backup/MyDatabase-$(date +%Y%m%d%H%M%S).bak'\";
+      done
+      "
 
 networks:
   app_network:

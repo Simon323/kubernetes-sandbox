@@ -17,6 +17,7 @@
     - [Check override env](#check-override-env)
     - [Run docker compose with build app](#run-docker-compose-with-build-app)
     - [Docker volues](#docker-volues)
+    - [Verify container connections](#verify-container-connections)
   - [Kubernetes](#kubernetes)
     - [Run in kubernetes](#run-in-kubernetes)
     - [Delete resources](#delete-resources)
@@ -113,6 +114,13 @@ docker-compose up --build -d
 ```bash
 docker volume ls
 docker volume inspect <volume-name>
+```
+
+### Verify container connections
+```bash
+apt update && apt install -y iputils-ping
+ping <container-name>
+ping db
 ```
 ---
 
