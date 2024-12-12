@@ -21,6 +21,35 @@
 
 ---
 
+## Init project
+
+### Create new project
+```bash
+dotnet new webapi -n WebApiWithDb
+```
+
+### Install Entity Framework Core
+```bash
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+```
+
+---
+
+## Database
+### Add migration
+```bash
+dotnet ef migrations add InitialCreate --output-dir Data/Migrations
+```
+
+### Update database
+```bash
+dotnet ef database update
+```
+
+---
+
 ## Docker
 ### Build docker image 
 ```bash

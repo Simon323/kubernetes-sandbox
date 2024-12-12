@@ -1,6 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using WebApiWithDb.Data;
 using WebApiWithDb.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -18,5 +23,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapWeatherEndpoints();
+app.MapProductEndpoints();
 
 app.Run();
