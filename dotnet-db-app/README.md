@@ -1,10 +1,21 @@
-# MyWebApi
-- [MyWebApi](#mywebapi)
+# WebApiWithDb
+- [WebApiWithDb](#webapiwithdb)
+  - [Init project](#init-project)
+    - [Create new project](#create-new-project)
+    - [Install Entity Framework Core](#install-entity-framework-core)
+  - [Database](#database)
+    - [Add migration](#add-migration)
+    - [Update database](#update-database)
+    - [Generate migrations between](#generate-migrations-between)
+    - [Generate migrations full](#generate-migrations-full)
+    - [Run from api dir](#run-from-api-dir)
+    - [Run from db dir](#run-from-db-dir)
   - [Docker](#docker)
     - [Build docker image](#build-docker-image)
     - [Run container](#run-container)
-    - [Run container with env](#run-container-with-env)
+    - [Get container logs](#get-container-logs)
     - [Check override env](#check-override-env)
+    - [Run docker compose](#run-docker-compose)
   - [Kubernetes](#kubernetes)
     - [Run in kubernetes](#run-in-kubernetes)
     - [Delete resources](#delete-resources)
@@ -48,28 +59,53 @@ dotnet ef migrations add InitialCreate --output-dir Data/Migrations
 dotnet ef database update
 ```
 
+### Generate migrations between
+```bash
+dotnet ef migrations script FromMigration ToMigration -o migration_script.sql
+dotnet ef migrations script InitialCreate AddNewColumnMigration -o migration_script.sql
+```
+
+### Generate migrations full
+```bash
+dotnet ef migrations script --idempotent -o idempotent_script.sql
+```
+
+### Run from api dir
+```bash
+dotnet ef migrations script --idempotent -o ../../db/idempotent_script.sql
+```
+
+### Run from db dir
+```bash
+dotnet ef migrations script --idempotent -o idempotent_script.sql --project ../src/WebApiWithDb/WebApiWithDb.csproj
+```
+
 ---
 
 ## Docker
 ### Build docker image 
 ```bash
-docker build -t mywebapi:local .
+docker build -t webapiwithdb:local .
 ```
 
 ### Run container
 ```bash
-docker run -d -p 8080:80 --name mywebapi mywebapi:local
+docker run -d -p 5000:80 --name webapiwithdb webapiwithdb:local
 ```
 
-### Run container with env
+### Get container logs
 ```bash
-docker run -d -p 8080:80 -e EnvKey=key_passed_to_container --name mywebapi mywebapi:local
-docker run -d -p 8080:80 -e EnvKey=key_passed_to_container -e JwtSettings__SecretKey="NewSuperSecretKey12345" --name mywebapi mywebapi:local
+docker logs <container-id>
 ```
 
 ### Check override env
 ```bash
 docker exec -it <container-id> env | grep JwtSettings__SecretKey
+```
+
+### Run docker compose
+```bash
+docker-compose up --build -d
 ```
 ---
 
@@ -96,17 +132,17 @@ kubectl get svc
 
 ### Describe pod
 ```bash
-kubectl describe pod <mywebapi-xxxxxxxxxx-xxxxx>
+kubectl describe pod <webapiwithdb-xxxxxxxxxx-xxxxx>
 ```
 
 ### Get pod logs
 ```bash
-kubectl logs <mywebapi-xxxxxxxxxx-xxxxx>
+kubectl logs <webapiwithdb-xxxxxxxxxx-xxxxx>
 ```
 
 ### Enter to pod container
 ```bash
-kubectl exec -it <mywebapi-xxxxxxxxxx-xxxxx> -- /bin/bash
+kubectl exec -it <webapiwithdb-xxxxxxxxxx-xxxxx> -- /bin/bash
 ```
 
 ### Get events
@@ -116,8 +152,8 @@ kubectl get events
 
 ### Get resources description
 ```bash
-kubectl describe deployment mywebapi
-kubectl describe svc mywebapi-service
+kubectl describe deployment webapiwithdb
+kubectl describe svc webapiwithdb-service
 ```
 
 ---

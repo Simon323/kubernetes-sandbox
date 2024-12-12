@@ -1,4 +1,4 @@
-@WebApiWithDb_HostAddress = http://localhost:5200
+@WebApiWithDb_HostAddress = http://localhost:5000
 
 GET {{WebApiWithDb_HostAddress}}/weatherforecast/
 Accept: application/json
@@ -13,6 +13,7 @@ Accept: application/json
 POST {{WebApiWithDb_HostAddress}}/products
 Content-Type: application/json
 Accept: application/json
+
 {
   "name": "Sample Product",
   "age": 25

@@ -1,0 +1,30 @@
+name: my_webapi_app_db
+version: "3.8"
+services:
+  webapi:
+    container_name: my_webapi_app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=db;Database=MyDatabase;User Id=sa;Password=YourStrongPassword!;TrustServerCertificate=True;MultipleActiveResultSets=true"
+    depends_on:
+      - db
+    networks:
+      - app_network
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: my_webapi_app_db
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "YourStrongPassword!"
+    ports:
+      - "1433:1433"
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
