@@ -15,7 +15,8 @@
     - [Run container](#run-container)
     - [Get container logs](#get-container-logs)
     - [Check override env](#check-override-env)
-    - [Run docker compose](#run-docker-compose)
+    - [Run docker compose with build app](#run-docker-compose-with-build-app)
+    - [Docker volues](#docker-volues)
   - [Kubernetes](#kubernetes)
     - [Run in kubernetes](#run-in-kubernetes)
     - [Delete resources](#delete-resources)
@@ -103,9 +104,15 @@ docker logs <container-id>
 docker exec -it <container-id> env | grep JwtSettings__SecretKey
 ```
 
-### Run docker compose
+### Run docker compose with build app
 ```bash
 docker-compose up --build -d
+```
+
+### Docker volues 
+```bash
+docker volume ls
+docker volume inspect <volume-name>
 ```
 ---
 

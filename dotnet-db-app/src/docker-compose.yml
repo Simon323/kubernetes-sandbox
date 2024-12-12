@@ -24,7 +24,13 @@ services:
       - "1433:1433"
     networks:
       - app_network
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+      - ./backups:/var/opt/mssql/backup
 
 networks:
   app_network:
     driver: bridge
+
+volumes:
+  sqlserver_data:
