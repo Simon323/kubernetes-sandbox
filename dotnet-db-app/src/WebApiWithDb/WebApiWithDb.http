@@ -17,3 +17,8 @@ Accept: application/json
   "name": "Sample Product",
   "age": 25
 }
+
+### 
+
+GET {{WebApiWithDb_HostAddress}}/products/1
+Accept: application/json
