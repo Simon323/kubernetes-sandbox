@@ -9,7 +9,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 Console.WriteLine($"Connection string: {connectionString}");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-	options.UseSqlServer(connectionString));
+	options.UseNpgsql(connectionString)); // PostgreSQL
+    //options.UseSqlServer(connectionString)); // SQL Server
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
