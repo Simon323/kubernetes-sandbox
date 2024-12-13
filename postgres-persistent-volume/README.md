@@ -4,8 +4,9 @@
   - [Connect database pod \& list DB](#connect-database-pod--list-db)
   - [Create table](#create-table)
   - [To keep db state after delete pods](#to-keep-db-state-after-delete-pods)
-  - [Apply full](#apply-full)
-  - [Delete full](#delete-full)
+  - [Apply \& Delete full](#apply--delete-full)
+  - [Dump database](#dump-database)
+  - [Restore database](#restore-database)
 
 ## Run deployment script
 ```bash
@@ -74,9 +75,7 @@ spec:
 ```
 Apply the changes
 ```bash
-kubectl apply -f db-persistent-volume.yaml
-kubectl apply -f db-persistent-volume-claim.yaml
-kubectl apply -f db-deployment.yaml
+kubectl apply -k k8s
 ```
 Create table and insert data
 ```bash
@@ -86,29 +85,25 @@ CREATE TABLE test (test_field varchar);
 ```
 Delete the pods
 ```bash
-kubectl delete -f db-deployment.yaml
-kubectl delete -f db-persistent-volume-claim.yaml
-kubectl delete -f db-persistent-volume.yaml
+kubectl delete -k k8s
 ```
 Create new pods
 ```bash
-kubectl apply -f db-persistent-volume.yaml
-kubectl apply -f db-persistent-volume-claim.yaml
-kubectl apply -f db-deployment.yaml
+kubectl apply -k k8s
 ```
 
-## Apply full
+## Apply & Delete full
 ```bash
-kubectl apply -f db-persistent-volume.yaml
-kubectl apply -f db-persistent-volume-claim.yaml
-kubectl apply -f db-deployment.yaml
-kubectl apply -f db-service.yaml
+kubectl apply -k k8s
+kubectl delete -k k8s
 ```
 
-## Delete full
+## Dump database
 ```bash
-kubectl delete -f db-service.yaml
-kubectl delete -f db-deployment.yaml
-kubectl delete -f db-persistent-volume-claim.yaml
-kubectl delete -f db-persistent-volume.yaml
+kubectl exec -it <pod-name> -- pg_dump -U vehicle_quotes -d vehicle_quotes > persistent-backup.sql
+```
+
+## Restore database
+```bash
+cat persistent-backup.sql | kubectl exec -i <pod-name> -- psql -U vehicle_quotes -d vehicle_quotes
 ```

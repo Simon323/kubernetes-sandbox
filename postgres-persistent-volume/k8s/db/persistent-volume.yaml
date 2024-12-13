@@ -14,4 +14,4 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/home/kevin/projects/vehicle-quotes-postgres-data"
+    path: "/run/desktop/mnt/host/c/lab/kubernetes/kubernetes-sandbox/postgres-persistent-volume/backups"

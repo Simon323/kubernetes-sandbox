@@ -4,3 +4,5 @@
 
 /.vs/slnx.sqlite
 /.vs
+*/backups
+*/persistent-backup.sql
