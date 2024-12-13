@@ -1,0 +1,36 @@
+name: my_webapi_app_db_postgres
+version: "3.8"
+services:
+  webapi:
+    container_name: my_webapi_app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"
+    environment:
+      ConnectionStrings__DefaultConnection: "Host=db;Database=MyDatabase;Username=postgres;Password=YourStrongPassword"
+    depends_on:
+      - db
+    networks:
+      - app_network
+  db:
+    image: postgres:13
+    container_name: my_webapi_app_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: YourStrongPassword
+      POSTGRES_DB: MyDatabase
+    ports:
+      - "5632:5432"
+    volumes:
+      - ./backups:/tmp/
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  sqlserver_data:

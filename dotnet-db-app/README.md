@@ -87,7 +87,7 @@ dotnet ef migrations script --idempotent -o idempotent_script.sql --project ../s
 ## Docker
 ### Build docker image 
 ```bash
-docker build -t webapiwithdb:local .
+docker build -t webapiwithdb:local . --no-cache
 ```
 
 ### Run container
@@ -107,7 +107,7 @@ docker exec -it <container-id> env | grep JwtSettings__SecretKey
 
 ### Run docker compose with build app
 ```bash
-docker-compose up --build -d
+docker-compose -f docker-compose_postgres.yml up --build -d
 ```
 
 ### Docker volues 
