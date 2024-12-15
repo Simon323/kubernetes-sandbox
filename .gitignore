@@ -6,3 +6,4 @@
 /.vs
 */backups
 */persistent-backup.sql
+*/mount*/

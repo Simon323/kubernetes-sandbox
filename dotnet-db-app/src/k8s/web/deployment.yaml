@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dotnet-app-web
+spec:
+  selector:
+    matchLabels:
+      app: dotnet-app-web
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dotnet-app-web
+    spec:
+      containers:
+        - name: dotnet-app-web
+          image: webapiwithdb:local
+          ports:
+            - containerPort: 80
+          # ports:
+          #   - containerPort: 5000
+          #     name: "http"
+          #   - containerPort: 5001
+          #     name: "https"
+          # volumeMounts:
+          #   - mountPath: "/app"
+          #     name: dotnet-app-source-code-storage
+          env:
+            - name: POSTGRES_DB
+              value: vehicle_quotes
+            - name: POSTGRES_USER
+              value: vehicle_quotes
+            - name: POSTGRES_PASSWORD
+              value: password
+            - name: ConnectionStrings__DefaultConnection
+              value: Host=$(DOTNET_APP_DB_SERVICE_SERVICE_HOST);Database=$(POSTGRES_DB);Username=$(POSTGRES_USER);Password=$(POSTGRES_PASSWORD)
+          resources:
+            limits:
+              memory: 2Gi
+              cpu: "1"
+      # volumes:
+      #   - name: dotnet-app-source-code-storage
+      #     persistentVolumeClaim:
+      #       claimName: dotnet-app-source-code-persisent-volume-claim

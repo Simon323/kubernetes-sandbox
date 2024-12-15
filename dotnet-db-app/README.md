@@ -31,6 +31,9 @@
   - [Kubernetes env](#kubernetes-env)
     - [ConfigMap Apply \& Display](#configmap-apply--display)
     - [Secret Applu \& Display](#secret-applu--display)
+  - [Kubernetes diagnostic](#kubernetes-diagnostic)
+    - [Run diagnostic pod](#run-diagnostic-pod)
+    - [Delete diagnostic pod](#delete-diagnostic-pod)
 
 ---
 
@@ -188,4 +191,18 @@ echo -n "PASS_YOUR_SUPER_SECRET_KEY_HERE" | base64
 kubectl apply -f jwt-secret.yaml
 kubectl describe secret jwt-secret
 kubectl get secret jwt-secret -o yaml
+```
+
+## Kubernetes diagnostic 
+
+### Run diagnostic pod
+```bash
+kubectl run tmp-shell --rm -i --tty --image=alpine -- /bin/sh
+apk add --no-cache netcat-openbsd
+nc -zv db-service 5432
+```
+
+### Delete diagnostic pod
+```bash
+kubectl delete pod tmp-shell
 ```
