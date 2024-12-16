@@ -17,14 +17,9 @@ spec:
           image: webapiwithdb:local
           ports:
             - containerPort: 80
-          # ports:
-          #   - containerPort: 5000
-          #     name: "http"
-          #   - containerPort: 5001
-          #     name: "https"
-          # volumeMounts:
-          #   - mountPath: "/app"
-          #     name: dotnet-app-source-code-storage
+          volumeMounts:
+            - mountPath: "/local"
+              name: dotnet-app-source-code-storage
           env:
             - name: POSTGRES_DB
               value: vehicle_quotes
@@ -34,12 +29,11 @@ spec:
               value: password
             - name: ConnectionStrings__DefaultConnection
               value: Host=dotnet-app-db-service;Port=5432;Database=$(POSTGRES_DB);Username=$(POSTGRES_USER);Password=$(POSTGRES_PASSWORD)
-              # value: Host=$(DOTNET_APP_DB_SERVICE_SERVICE_HOST);Database=$(POSTGRES_DB);Username=$(POSTGRES_USER);Password=$(POSTGRES_PASSWORD)
           resources:
             limits:
               memory: 2Gi
               cpu: "1"
-      # volumes:
-      #   - name: dotnet-app-source-code-storage
-      #     persistentVolumeClaim:
-      #       claimName: dotnet-app-source-code-persisent-volume-claim
+      volumes:
+        - name: dotnet-app-source-code-storage
+          persistentVolumeClaim:
+            claimName: dotnet-app-source-code-persisent-volume-claim
