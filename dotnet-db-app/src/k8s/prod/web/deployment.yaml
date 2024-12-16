@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dotnet-app-web
+spec:
+  selector:
+    matchLabels:
+      app: dotnet-app-web
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dotnet-app-web
+    spec:
+      containers:
+        - name: dotnet-app-web
+          image: webapiwithdb:local
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: "/local"
+              name: dotnet-app-source-code-storage
+          env:
+            # Implicitly set the POSTGRES_DB, POSTGRES_USER, and POSTGRES_PASSWORD environment variables
+            # - name: POSTGRES_DB
+            #   value: dotnet_app_db
+            # - name: POSTGRES_USER
+            #   value: dotnet_app_db
+            # - name: POSTGRES_PASSWORD
+            #   value: password
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_PASSWORD
+            - name: ConnectionStrings__DefaultConnection
+              value: Host=dotnet-app-db-service;Port=5432;Database=$(POSTGRES_DB);Username=$(POSTGRES_USER);Password=$(POSTGRES_PASSWORD)
+          resources:
+            limits:
+              memory: 2Gi
+              cpu: "1"
+      volumes:
+        - name: dotnet-app-source-code-storage
+          persistentVolumeClaim:
+            claimName: dotnet-app-source-code-persisent-volume-claim

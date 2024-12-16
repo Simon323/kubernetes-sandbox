@@ -1,14 +1,10 @@
 kind: Kustomization
 
 resources:
-  - db/persistent-volume.yaml
   - db/persistent-volume-claim.yaml
   - db/service.yaml
   - db/deployment.yaml
-  - web/persistent-volume.yaml
-  - web/persistent-volume-claim.yaml
   - web/service.yaml
-  - web/deployment.yaml
 
 configMapGenerator:
   - name: postgres-config
