@@ -38,20 +38,37 @@ spec:
             #   value: dotnet_app_db
             # - name: POSTGRES_PASSWORD
             #   value: password
+            # Explicitly ConfigMap set the POSTGRES_DB, POSTGRES_USER, and POSTGRES_PASSWORD environment variables
+            # - name: POSTGRES_DB
+            #   valueFrom:
+            #     configMapKeyRef:
+            #       name: postgres-config
+            #       key: POSTGRES_DB
+            # - name: POSTGRES_USER
+            #   valueFrom:
+            #     configMapKeyRef:
+            #       name: postgres-config
+            #       key: POSTGRES_USER
+            # - name: POSTGRES_PASSWORD
+            #   valueFrom:
+            #     configMapKeyRef:
+            #       name: postgres-config
+            #       key: POSTGRES_PASSWORD
+            # Explicitly Secret set the POSTGRES_DB, POSTGRES_USER, and POSTGRES_PASSWORD environment variables
             - name: POSTGRES_DB
               valueFrom:
-                configMapKeyRef:
-                  name: postgres-config
+                secretKeyRef:
+                  name: postgres-credentials
                   key: POSTGRES_DB
             - name: POSTGRES_USER
               valueFrom:
-                configMapKeyRef:
-                  name: postgres-config
+                secretKeyRef:
+                  name: postgres-credentials
                   key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
               valueFrom:
-                configMapKeyRef:
-                  name: postgres-config
+                secretKeyRef:
+                  name: postgres-credentials
                   key: POSTGRES_PASSWORD
             - name: ConnectionStrings__DefaultConnection
               value: Host=dotnet-app-db-service;Port=5432;Database=$(POSTGRES_DB);Username=$(POSTGRES_USER);Password=$(POSTGRES_PASSWORD)
