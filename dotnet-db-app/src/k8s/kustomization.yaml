@@ -9,3 +9,10 @@ resources:
   - web/persistent-volume-claim.yaml
   - web/service.yaml
   - web/deployment.yaml
+
+configMapGenerator:
+  - name: postgres-config
+    literals:
+      - POSTGRES_DB=dotnet_app_db
+      - POSTGRES_USER=dotnet_app_db
+      - POSTGRES_PASSWORD=password
