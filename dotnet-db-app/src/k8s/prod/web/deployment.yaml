@@ -23,7 +23,8 @@ spec:
             ]
       containers:
         - name: dotnet-app-web
-          image: webapiwithdb:local
+          image: web-api-with-db
+          # image: webapiwithdb:local
           ports:
             - containerPort: 80
           volumeMounts:

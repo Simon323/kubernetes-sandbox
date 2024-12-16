@@ -2,5 +2,17 @@ kind: Kustomization
 
 resources:
   - ../base
-  - db/persistent-volume.yaml
   - web/deployment.yaml
+
+patches:
+  - target:
+      group: ""
+      version: v1
+      kind: PersistentVolume
+      name: dotnet-app-postgres-data-persisent-volume
+    path: db/persistent-volume-host-path.yaml
+
+images:
+  - name: web-api-with-db
+    newName: webapiwithdb
+    newTag: local
