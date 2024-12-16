@@ -166,6 +166,7 @@ kubectl exec -it <webapiwithdb-xxxxxxxxxx-xxxxx> -- /bin/bash
 ### Get events
 ```bash
 kubectl get events
+kubectl get events | grep -i <pod-name>
 ```
 
 ### Get resources description

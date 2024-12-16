@@ -7,13 +7,18 @@ spec:
   selector:
     app: dotnet-app-web
   ports:
-    - name: "http"
-      protocol: TCP
-      port: 5000
-      targetPort: 5000
-      nodePort: 30000
-    - name: "https"
-      protocol: TCP
-      port: 5001
-      targetPort: 5001
+    - protocol: TCP
+      port: 80
+      targetPort: 80
       nodePort: 30001
+  # ports:
+  #   - name: "http"
+  #     protocol: TCP
+  #     port: 5000
+  #     targetPort: 5000
+  #     nodePort: 30000
+  #   - name: "https"
+  #     protocol: TCP
+  #     port: 5001
+  #     targetPort: 5001
+  #     nodePort: 30001

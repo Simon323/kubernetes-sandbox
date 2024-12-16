@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: dotnet-app-db-service
 spec:
-  type: NodePort
+  # type: NodePort
   selector:
     app: dotnet-app-db
   ports:
@@ -11,4 +11,4 @@ spec:
       protocol: TCP
       port: 5432
       targetPort: 5432
-      nodePort: 30432
+      # nodePort: 30432

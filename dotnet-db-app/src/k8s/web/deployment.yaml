@@ -33,7 +33,8 @@ spec:
             - name: POSTGRES_PASSWORD
               value: password
             - name: ConnectionStrings__DefaultConnection
-              value: Host=$(DOTNET_APP_DB_SERVICE_SERVICE_HOST);Database=$(POSTGRES_DB);Username=$(POSTGRES_USER);Password=$(POSTGRES_PASSWORD)
+              value: Host=dotnet-app-db-service;Port=5432;Database=$(POSTGRES_DB);Username=$(POSTGRES_USER);Password=$(POSTGRES_PASSWORD)
+              # value: Host=$(DOTNET_APP_DB_SERVICE_SERVICE_HOST);Database=$(POSTGRES_DB);Username=$(POSTGRES_USER);Password=$(POSTGRES_PASSWORD)
           resources:
             limits:
               memory: 2Gi
