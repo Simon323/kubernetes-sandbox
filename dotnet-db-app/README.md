@@ -25,6 +25,7 @@
     - [Get services](#get-services)
     - [Describe pod](#describe-pod)
     - [Get pod logs](#get-pod-logs)
+    - [Get pod logs in context of step](#get-pod-logs-in-context-of-step)
     - [Enter to pod container](#enter-to-pod-container)
     - [Get events](#get-events)
     - [Get resources description](#get-resources-description)
@@ -156,6 +157,11 @@ kubectl describe pod <webapiwithdb-xxxxxxxxxx-xxxxx>
 ### Get pod logs
 ```bash
 kubectl logs <webapiwithdb-xxxxxxxxxx-xxxxx>
+```
+
+### Get pod logs in context of step
+```bash
+kubectl logs -f <pod-name> await-db-ready
 ```
 
 ### Enter to pod container

@@ -12,6 +12,15 @@ spec:
       labels:
         app: dotnet-app-web
     spec:
+      initContainers:
+        - name: await-db-ready
+          image: postgres:13
+          command: ["/bin/sh"]
+          args:
+            [
+              "-c",
+              "until pg_isready -h dotnet-app-db-service -p 5432; do echo waiting for database; sleep 2; done;",
+            ]
       containers:
         - name: dotnet-app-web
           image: webapiwithdb:local
@@ -51,5 +60,4 @@ spec:
               cpu: "1"
       volumes:
         - name: dotnet-app-source-code-storage
-          persistentVolumeClaim:
-            claimName: dotnet-app-source-code-persisent-volume-claim
+          emptyDir: {}
